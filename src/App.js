@@ -1,7 +1,9 @@
 import React from "react";
-import logo from "./logo.svg";
+
 import "./App.css";
 import Linegraph from "./linegraph";
+
+
 
 class App extends React.Component {
   constructor() {
@@ -30,7 +32,6 @@ class App extends React.Component {
       });
   };
   render() {
-    console.log(this.state.particularData);
     var dataLabels = [];
     this.state.particularData &&
       this.state.particularData.map((data) => dataLabels.push(data.Date));
@@ -47,18 +48,14 @@ class App extends React.Component {
     this.state.particularData &&
       this.state.particularData.map((data) => recovered.push(data.Recovered));
 
-    console.log(dataLabels, active, confirmed, deaths, recovered);
-
     var dataToShow = <p className="pa3 red ma3 tc ">Select a country please</p>;
 
     if (this.state.datas) {
-      var selectCountry = this.state.datas.Countries.map((countries) => {
+      var selectCountry = this.state.datas.Countries.map((countries, i) => {
         return (
-          <>
-            <option key={countries} value={countries.Country}>
-              {countries.Country}
-            </option>
-          </>
+          <option key={i} value={countries.Country}>
+            {countries.Country}
+          </option>
         );
       });
       var dataFound = this.state.datas.Countries.filter(
@@ -67,7 +64,7 @@ class App extends React.Component {
 
       if (dataFound[0]) {
         dataToShow = (
-          <div className = 'mt4'>
+          <div className="mt4">
             <div className="tc br3 ba f2 ba--purple bg-purple white ma3">
               <p>{dataFound[0].Country}</p>
             </div>
@@ -119,20 +116,20 @@ class App extends React.Component {
       !deaths.length &&
       !recovered.length
     ) {
-      var showGraph = "";
+      var showGraph = <p className = 'tc b f3 '>SORRY.. No Data Found. Select other country please</p>
     } else {
-      var showGraph = (
+      showGraph = (
         <>
-         <p className="f2 bg-light-blue br3  shadow-5 pa3 ma3 tc">
+          <p className="f2 bg-light-blue br3  shadow-5 pa3 ma3 tc">
             Data of Last 10 days
           </p>
-        <Linegraph
-          labels={dataLabels.slice(Math.max(dataLabels.length - 10, 1))}
-          active={active.slice(Math.max(active.length - 10, 1))}
-          confirmed={confirmed.slice(Math.max(active.length - 10, 1))}
-          deaths={deaths.slice(Math.max(active.length - 10, 1))}
-          recovered={recovered.slice(Math.max(active.length - 10, 1))}
-        />
+          <Linegraph
+            labels={dataLabels.slice(Math.max(dataLabels.length - 10, 1))}
+            active={active.slice(Math.max(active.length - 10, 1))}
+            confirmed={confirmed.slice(Math.max(active.length - 10, 1))}
+            deaths={deaths.slice(Math.max(active.length - 10, 1))}
+            recovered={recovered.slice(Math.max(active.length - 10, 1))}
+          />
         </>
       );
     }
@@ -142,7 +139,12 @@ class App extends React.Component {
           id="country_select"
           name="country"
           className="db tc pa3 ma3"
-          style={{ position: "fixed", top: "0", left: "50%", transform: 'translate(-50%, 0)' }}
+          style={{
+            position: "fixed",
+            top: "0",
+            left: "50%",
+            transform: "translate(-50%, 0)",
+          }}
           onChange={this.handleCountryChange}
           default="select"
         >
@@ -151,10 +153,7 @@ class App extends React.Component {
         </select>
         {dataToShow}
 
-        <div>
-         
-          {showGraph}
-        </div>
+        <div>{showGraph}</div>
       </div>
     );
   }

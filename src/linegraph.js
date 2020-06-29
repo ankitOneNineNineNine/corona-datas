@@ -1,40 +1,52 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Chart from "chart.js";
 import "./linechart.css";
 Chart.defaults.global.defaultFontFamily = "'PT Sans', sans-serif";
 Chart.defaults.global.legend.display = false;
 
-export default function Linegraph(props) {
-  const chartRef = React.createRef();
+const chartRef = React.createRef();
+export default class Linegraph extends React.Component {
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevProps.active !== this.props.active ||
+      prevProps.confirmed !== this.props.confirmed ||
+      prevProps.deaths !== this.props.deaths ||
+      prevProps.recovered !== this.props.recovered
+    ) {
+      this.createGraph();
+    } else return false;
+  }
+  componentDidMount() {
+    this.createGraph();
+  }
 
-  useEffect(() => {
-    console.log(props);
+  createGraph = () => {
     const myChartRef = chartRef.current.getContext("2d");
 
     new Chart(myChartRef, {
       type: "bar",
       data: {
-        labels: props.labels,
+        labels: this.props.labels,
         datasets: [
           {
             label: "ACTIVE",
             backgroundColor: "rgba(255, 0, 0, 0.1)",
-            data: props.active,
+            data: this.props.active,
           },
           {
             label: "CONFIRMED",
             backgroundColor: "rgba(0, 255, 0, 0.5)",
-            data: props.confirmed,
+            data: this.props.confirmed,
           },
           {
             label: "DEATHS",
             backgroundColor: "rgba(0, 0, 255, 1)",
-            data: props.deaths,
+            data: this.props.deaths,
           },
           {
             label: "RECOVERED",
             backgroundColor: "rgba(255, 255, 255, 0.1)",
-            data: props.recovered,
+            data: this.props.recovered,
           },
         ],
       },
@@ -54,11 +66,13 @@ export default function Linegraph(props) {
         },
       },
     });
-  }, [props.active]);
-
-  return (
-    <div className="">
-      <canvas id="myChart" ref={chartRef} />
-    </div>
-  );
+  };
+  
+  render() {
+    return (
+      <div className="">
+        <canvas id="myChart" ref={chartRef} />
+      </div>
+    );
+  }
 }
