@@ -62,7 +62,7 @@ class App extends React.Component {
 
       if (dataFound[0]) {
         dataToShow = (
-          <div className="mt4">
+          <div className="mt5">
             <div className="tc br3 ba f2 ba--purple bg-purple white ma3">
               <p>{dataFound[0].Country}</p>
             </div>
@@ -114,11 +114,17 @@ class App extends React.Component {
       !deaths.length &&
       !recovered.length
     ) {
-      var showGraph = (
-        <p className="tc b f3 ">
-          SORRY.. No Data Found. Select other country please
-        </p>
-      );
+      if (!this.state.countrySelected) {
+        var showGraph = <p className="tc b f5 red">Select a country please</p>;
+      }
+      else{
+
+        showGraph = (
+          <p className="tc b f5 red">
+            SORRY.. No regular Data Found. Select other country please
+          </p>
+        );
+      }
     } else {
       showGraph = (
         <>
