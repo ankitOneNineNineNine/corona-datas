@@ -3,8 +3,6 @@ import React from "react";
 import "./App.css";
 import Linegraph from "./linegraph";
 
-
-
 class App extends React.Component {
   constructor() {
     super();
@@ -69,37 +67,37 @@ class App extends React.Component {
               <p>{dataFound[0].Country}</p>
             </div>
             <div className=" flex justify-between">
-              <div className="fl pa3 br3 ba ba--yellow bg-orange white shadow-4 boxes">
+              <div className="fl pa3 br3 ba ba--yellow bg-orange white grow shadow-4 boxes">
                 <p>New Found</p>
                 <hr />
 
                 <p className="tc"> {dataFound[0].NewConfirmed}</p>
               </div>
-              <div className="fl pa3 br3 ba ba--purple bg-light-green black shadow-4 boxes">
+              <div className="fl pa3 br3 ba ba--purple bg-light-green black grow shadow-4 boxes">
                 <p>New Deaths</p>
                 <hr />
 
                 <p className="tc">{dataFound[0].NewDeaths}</p>
               </div>
-              <div className="fl pa3 br3 ba ba--purple bg-light-green black shadow-4 boxes">
+              <div className="fl pa3 br3 ba ba--purple bg-light-blue black grow shadow-4 boxes">
                 <p>New Recovered</p>
                 <hr />
 
                 <p className="tc">{dataFound[0].NewRecovered}</p>
               </div>
-              <div className="fl pa3 br3 ba ba--purple bg-light-green black shadow-4 boxes">
+              <div className="fl pa3 br3 ba ba--purple bg-light-yellow black grow shadow-4 boxes">
                 <p>Total Confirmed</p>
                 <hr />
 
                 <p className="tc">{dataFound[0].TotalConfirmed}</p>
               </div>
-              <div className="fl pa3 br3 ba ba--purple bg-light-green black shadow-4 boxes">
+              <div className="fl pa3 br3 ba ba--purple bg-light-gray black grow shadow-4 boxes">
                 <p>Total Deaths</p>
                 <hr />
 
                 <p className="tc">{dataFound[0].TotalDeaths}</p>
               </div>
-              <div className="fl pa3 br3 ba ba--purple bg-light-green black shadow-4 boxes">
+              <div className="fl pa3 br3 ba ba--purple bg-light-purple black grow shadow-4 boxes">
                 <p>Total Recovered</p>
                 <hr />
 
@@ -116,7 +114,11 @@ class App extends React.Component {
       !deaths.length &&
       !recovered.length
     ) {
-      var showGraph = <p className = 'tc b f3 '>SORRY.. No Data Found. Select other country please</p>
+      var showGraph = (
+        <p className="tc b f3 ">
+          SORRY.. No Data Found. Select other country please
+        </p>
+      );
     } else {
       showGraph = (
         <>
